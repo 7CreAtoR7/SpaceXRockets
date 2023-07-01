@@ -1,3 +1,39 @@
 <resources>
     <string name="app_name">SpaceXRockets</string>
+    <string name="first_launch">Первый запуск</string>
+    <string name="country">Страна</string>
+    <string name="launch_price">Стоимость запуска</string>
+
+    <string name="first_stage">Первая ступень</string>
+    <string name="engines_count_first_stage">Количество двигателей</string>
+    <string name="fuel_count_first_stage">Количество топлива</string>
+    <string name="burn_time_first_stage">Время сгорания</string>
+
+    <string name="second_stage">Вторая ступень</string>
+    <string name="engines_count_second_stage">Количество двигателей</string>
+    <string name="fuel_count_second_stage">Количество топлива</string>
+    <string name="burn_time_second_stage">Время сгорания</string>
+
+    <string name="check_launches">Посмотреть запуски</string>
+
+    <string name="ton">ton</string>
+    <string name="sec">sec</string>
+
+
+
+
+    <string name="falcon_heavy">Falcon Heavy</string>
+    <string name="string_value">229.6</string>
+    <string name="string_test_value">Высота, ft</string>
+
+    <string name="string_test_first_launch">7 февраля, 2018</string>
+    <string name="string_test_country">США</string>
+    <string name="string_test_price">$90 млн</string>
+    <string name="string_test_engines">27</string>
+    <string name="string_test_fuel">308,6</string>
+    <string name="burn_time">593</string>
+    <string name="engines_second_stage">1</string>
+    <string name="fuel_second_stage">243,2</string>
+    <string name="burn_time_second_stage_value">397</string>
+
 </resources>
