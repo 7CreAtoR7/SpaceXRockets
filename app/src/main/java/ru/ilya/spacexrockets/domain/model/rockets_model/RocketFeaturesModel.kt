@@ -1,4 +1,4 @@
-package ru.ilya.spacexrockets.domain.model
+package ru.ilya.spacexrockets.domain.model.rockets_model
 
 data class RocketFeaturesModel(
     val feature: String,

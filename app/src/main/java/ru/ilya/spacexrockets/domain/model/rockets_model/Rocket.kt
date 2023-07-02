@@ -1,4 +1,4 @@
-package ru.ilya.spacexrockets.domain.model
+package ru.ilya.spacexrockets.domain.model.rockets_model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

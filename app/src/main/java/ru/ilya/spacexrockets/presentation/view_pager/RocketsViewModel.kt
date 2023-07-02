@@ -1,24 +1,21 @@
-package ru.ilya.spacexrockets.presentation
+package ru.ilya.spacexrockets.presentation.view_pager
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import ru.ilya.spacexrockets.domain.use_case.GetRocketsUseCase
 import ru.ilya.spacexrockets.util.Resource
-import ru.ilya.spacexrockets.util.RocketsUIState
+import ru.ilya.spacexrockets.presentation.rockets_screen.RocketsUIState
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
+class RocketsViewModel @Inject constructor(
     private val getRocketsUseCase: GetRocketsUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow<RocketsUIState>(RocketsUIState.Init)
-    val state = _state.asSharedFlow()
+    val state = _state.asStateFlow()
 
     fun getRockets() {
         viewModelScope.launch(Dispatchers.IO) {

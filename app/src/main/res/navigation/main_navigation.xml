@@ -3,11 +3,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/rocketsFragment">
+    app:startDestination="@id/rocketsViewPagerFragment">
 
     <fragment
-        android:id="@+id/rocketsFragment"
-        android:name="ru.ilya.spacexrockets.presentation.rockets_screen.RocketsFragment"
-        android:label="fragment_rockets"
-        tools:layout="@layout/fragment_rockets" />
+        android:id="@+id/launchesFragment"
+        android:name="ru.ilya.spacexrockets.presentation.launches_screen.LaunchesFragment"
+        android:label="fragment_launches"
+        tools:layout="@layout/fragment_launches" >
+        <argument
+            android:name="rocketName"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/rocketsViewPagerFragment"
+        android:name="ru.ilya.spacexrockets.presentation.view_pager.RocketsViewPagerFragment"
+        android:label="fragment_rockets_view_pager"
+        tools:layout="@layout/fragment_rockets_view_pager" >
+        <action
+            android:id="@+id/action_rocketsViewPagerFragment_to_launchesFragment"
+            app:destination="@id/launchesFragment"
+            app:enterAnim="@anim/slide_up"/>
+    </fragment>
 </navigation>

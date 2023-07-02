@@ -5,7 +5,8 @@ import kotlinx.coroutines.flow.flow
 import retrofit2.HttpException
 import ru.ilya.spacexrockets.data.mapper.AppMapper
 import ru.ilya.spacexrockets.data.remote.SpaceXApi
-import ru.ilya.spacexrockets.domain.model.Rocket
+import ru.ilya.spacexrockets.domain.model.launches_model.Launch
+import ru.ilya.spacexrockets.domain.model.rockets_model.Rocket
 import ru.ilya.spacexrockets.domain.repository.SpaceXRepository
 import ru.ilya.spacexrockets.util.Resource
 import java.io.IOException
@@ -23,6 +24,21 @@ class SpaceXRepositoryImpl @Inject constructor(
                 val remoteRockets = api.getRockets()
                 val modelRockets = mapper.mapListRocketDtoToListRocket(remoteRockets)
                 emit(Resource.Success(modelRockets))
+            } catch (e: IOException) {
+                emit(Resource.Error(message = INTERNET_CONNECTION_ERROR))
+            } catch (e: HttpException) {
+                emit(Resource.Error(message = SOMETHING_WENT_WRONG))
+            }
+        }
+    }
+
+    override suspend fun getLaunchesByRocketId(rocketName: String): Flow<Resource<List<Launch>>> {
+        return flow {
+            emit(Resource.Loading())
+            try {
+                val remoteLaunches = api.getLaunchesByRocketId(rocketName = rocketName)
+                val modelLaunches = mapper.mapListLaunchDtoToListLaunch(remoteLaunches)
+                emit(Resource.Success(modelLaunches))
             } catch (e: IOException) {
                 emit(Resource.Error(message = INTERNET_CONNECTION_ERROR))
             } catch (e: HttpException) {
