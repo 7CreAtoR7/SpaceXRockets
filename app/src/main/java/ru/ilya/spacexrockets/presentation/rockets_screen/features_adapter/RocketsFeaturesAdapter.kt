@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import ru.ilya.spacexrockets.databinding.RocketFeatureItemBinding
-import ru.ilya.spacexrockets.domain.model.RocketFeaturesModel
+import ru.ilya.spacexrockets.domain.model.rockets_model.RocketFeaturesModel
 
 class RocketsFeaturesAdapter(
     private val featuresModel: List<RocketFeaturesModel>

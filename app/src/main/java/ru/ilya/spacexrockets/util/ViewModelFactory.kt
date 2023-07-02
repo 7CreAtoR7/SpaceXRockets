@@ -1,4 +1,4 @@
-package ru.ilya.spacexrockets.presentation
+package ru.ilya.spacexrockets.util
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

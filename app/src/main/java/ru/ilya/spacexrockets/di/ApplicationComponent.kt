@@ -4,6 +4,8 @@ import android.app.Application
 import dagger.BindsInstance
 import dagger.Component
 import ru.ilya.spacexrockets.presentation.MainActivity
+import ru.ilya.spacexrockets.presentation.launches_screen.LaunchesFragment
+import ru.ilya.spacexrockets.presentation.view_pager.RocketsViewPagerFragment
 
 @ApplicationScope
 @Component(
@@ -14,7 +16,9 @@ import ru.ilya.spacexrockets.presentation.MainActivity
 )
 interface ApplicationComponent {
 
-    fun inject(activity: MainActivity)
+    fun inject(fragment: RocketsViewPagerFragment)
+
+    fun inject(fragment: LaunchesFragment)
 
     @Component.Factory
     interface Factory {

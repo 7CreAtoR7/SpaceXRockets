@@ -1,46 +1,45 @@
-package ru.ilya.spacexrockets.presentation.rockets_screen
+package ru.ilya.spacexrockets.presentation.launches_screen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
-import ru.ilya.spacexrockets.domain.use_case.GetRocketsUseCase
+import ru.ilya.spacexrockets.domain.use_case.GetLaunchesUseCase
 import ru.ilya.spacexrockets.util.Resource
-import ru.ilya.spacexrockets.util.RocketsUIState
 import javax.inject.Inject
 
-class RocketsViewModel @Inject constructor(
-    private val getRocketsUseCase: GetRocketsUseCase,
+class LaunchesViewModel @Inject constructor(
+    private val getLaunchesUseCase: GetLaunchesUseCase,
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow<RocketsUIState>(RocketsUIState.Init)
-    val state = _state.asSharedFlow()
+    private val _state = MutableStateFlow<LaunchesUIState>(LaunchesUIState.Init)
+    val state = _state.asStateFlow()
 
-    fun getRockets() {
+    fun getLaunchesByRocketId(rocketName: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            getRocketsUseCase()
+            getLaunchesUseCase(rocketName = rocketName)
                 .onEach { result ->
                     when (result) {
                         is Resource.Success -> {
-                            _state.value = RocketsUIState.Success(
-                                rocketsList = result.data ?: emptyList()
+                            _state.value = LaunchesUIState.Success(
+                                launchesList = result.data ?: emptyList()
                             )
                         }
                         is Resource.Error -> {
                             _state.emit(
-                                RocketsUIState.Error(
+                                LaunchesUIState.Error(
                                     message = result.message ?: SOMETHING_WENT_WRONG
                                 )
                             )
                         }
                         is Resource.Loading -> {
                             _state.emit(
-                                RocketsUIState.Loading(
-                                    rocketsListFromLastSession = result.data ?: emptyList()
+                                LaunchesUIState.Loading(
+                                    launchesListFromLastSession = result.data ?: emptyList()
                                 )
                             )
                         }

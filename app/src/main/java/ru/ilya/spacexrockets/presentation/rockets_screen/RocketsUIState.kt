@@ -1,6 +1,6 @@
-package ru.ilya.spacexrockets.util
+package ru.ilya.spacexrockets.presentation.rockets_screen
 
-import ru.ilya.spacexrockets.domain.model.Rocket
+import ru.ilya.spacexrockets.domain.model.rockets_model.Rocket
 
 sealed class RocketsUIState {
     object Init : RocketsUIState()

@@ -1,10 +1,24 @@
 package ru.ilya.spacexrockets.data.mapper
 
+import ru.ilya.spacexrockets.data.remote.dto.launches_dto.LaunchDto
 import ru.ilya.spacexrockets.data.remote.dto.rockets_dto.*
-import ru.ilya.spacexrockets.domain.model.Rocket
+import ru.ilya.spacexrockets.domain.model.launches_model.Launch
+import ru.ilya.spacexrockets.domain.model.rockets_model.Rocket
 import javax.inject.Inject
 
 class AppMapper @Inject constructor() {
+
+    fun mapListLaunchDtoToListLaunch(launchesDto: List<LaunchDto>): List<Launch> {
+        return launchesDto.map { mapLaunchDtoToLaunch(it) }
+    }
+
+    private fun mapLaunchDtoToLaunch(launchDto: LaunchDto): Launch {
+        return Launch(
+            missionName = launchDto.mission_name ?: EMPTY_STRING,
+            launchSuccess = launchDto.launch_success ?: FALSE,
+            launchDateUnix = launchDto.launch_date_unix ?: ZERO_INT
+        )
+    }
 
     fun mapListRocketDtoToListRocket(rocketsDto: List<RocketDto>): List<Rocket> {
         return rocketsDto.map { mapRocketDtoToRocket(it) }
@@ -42,5 +56,6 @@ class AppMapper @Inject constructor() {
         const val ZERO_DOUBLE = 0.0
         const val EMPTY_STRING = ""
         const val FIRST_INDEX = 0
+        const val FALSE = false
     }
 }
