@@ -21,7 +21,16 @@
         tools:layout="@layout/fragment_rockets_view_pager" >
         <action
             android:id="@+id/action_rocketsViewPagerFragment_to_launchesFragment"
-            app:destination="@id/launchesFragment"
+            app:destination="@id/launchesFragment" />
+        <action
+            android:id="@+id/action_rocketsViewPagerFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
             app:enterAnim="@anim/slide_up"/>
+
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="ru.ilya.spacexrockets.presentation.settings_screen.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

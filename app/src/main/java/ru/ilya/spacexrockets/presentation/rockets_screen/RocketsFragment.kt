@@ -87,6 +87,10 @@ class RocketsFragment : Fragment() {
         binding.checkLaunches.setOnClickListener {
             findNavController().navigate(RocketsViewPagerFragmentDirections.actionRocketsViewPagerFragmentToLaunchesFragment(currentRocket.rocketName))
         }
+
+        binding.settingsButton.setOnClickListener {
+            findNavController().navigate(RocketsViewPagerFragmentDirections.actionRocketsViewPagerFragmentToSettingsFragment())
+        }
     }
 
     private fun loadImage() {

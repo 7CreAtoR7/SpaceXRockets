@@ -16,6 +16,16 @@
     <string name="sec">sec</string>
     <string name="empty_list_launches">Список пуст</string>
     <string name="back">Назад</string>
+    <string name="settings">Настройки</string>
+    <string name="close">Закрыть</string>
+    <string name="height">Высота</string>
+    <string name="diameter">Диаметр</string>
+    <string name="mass">Масса</string>
+    <string name="leo">Полезная нагрузка</string>
+    <string name="m">m</string>
+    <string name="ft">ft</string>
+    <string name="kg">kg</string>
+    <string name="lb">lb</string>
 
 
     <string name="falcon_heavy">Falcon Heavy</string>

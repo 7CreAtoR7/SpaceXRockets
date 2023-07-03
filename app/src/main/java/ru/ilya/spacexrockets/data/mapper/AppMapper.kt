@@ -31,10 +31,14 @@ class AppMapper @Inject constructor() {
             rocketName = rocketDto.rocket_name ?: EMPTY_STRING,
             imageUrl = rocketDto.images?.get(FIRST_INDEX) ?: EMPTY_STRING,
 
+            heightM = rocketDto.height?.meters ?: ZERO_DOUBLE,
             heightFeet = rocketDto.height?.feet ?: ZERO_DOUBLE,
+            diameterM = rocketDto.diameter?.meters ?: ZERO_DOUBLE,
             diameterFeet = rocketDto.diameter?.feet ?: ZERO_DOUBLE,
+            massKg = rocketDto.mass?.kg ?: ZERO_INT,
             massLb = rocketDto.mass?.lb ?: ZERO_INT,
-            LeoPayload = rocketDto.payload_weights?.get(FIRST_INDEX)?.lb ?: ZERO_INT,
+            LeoPayloadKg = rocketDto.payload_weights?.get(FIRST_INDEX)?.kg ?: ZERO_INT,
+            LeoPayloadLb = rocketDto.payload_weights?.get(FIRST_INDEX)?.lb ?: ZERO_INT,
 
             firstFlight = rocketDto.first_flight ?: EMPTY_STRING,
             country = rocketDto.country ?: EMPTY_STRING,

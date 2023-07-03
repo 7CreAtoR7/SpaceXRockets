@@ -1,6 +1,8 @@
 package ru.ilya.spacexrockets.presentation
 
 import android.os.Bundle
+import android.view.View
+import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import ru.ilya.spacexrockets.databinding.ActivityMainBinding
 
@@ -12,7 +14,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        supportActionBar?.hide()
     }
 }
