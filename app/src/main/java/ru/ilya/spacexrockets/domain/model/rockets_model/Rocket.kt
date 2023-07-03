@@ -10,10 +10,17 @@ data class Rocket(
     val rocketName: String,
     val imageUrl: String,
 
+    val heightM: Double,
     val heightFeet: Double,
+
+    val diameterM: Double,
     val diameterFeet: Double,
+
+    val massKg: Int,
     val massLb: Int,
-    val LeoPayload: Int,
+
+    val LeoPayloadKg: Int,
+    val LeoPayloadLb: Int,
 
     val firstFlight: String,
     val country: String,

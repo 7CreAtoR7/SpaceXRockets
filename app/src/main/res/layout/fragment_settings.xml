@@ -1,14 +1,295 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".presentation.settings_screen.SettingsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        app:layout_collapseMode="pin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/settings"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/close"
+            android:textStyle="bold"
+            android:layout_gravity="end"
+            android:layout_marginEnd="20dp"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/height_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/height"
+        android:layout_marginTop="50dp"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@drawable/bg_switch"
+        android:padding="2.5dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/height_text"
+        app:layout_constraintBottom_toBottomOf="@+id/height_text">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_height"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:thumb="@drawable/thumb_selector"
+            app:switchMinWidth="100dp"
+            app:track="@drawable/track_selector" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/switch_height_m"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/m"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/switch_height_ft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/ft"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/diameter_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/diameter"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/height_text"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@drawable/bg_switch"
+        android:padding="2.5dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/diameter_text"
+        app:layout_constraintBottom_toBottomOf="@+id/diameter_text">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_diameter"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:thumb="@drawable/thumb_selector"
+            app:switchMinWidth="100dp"
+            app:track="@drawable/track_selector" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/switch_diameter_m"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/m"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/switch_diameter_ft"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/ft"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/mass_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mass"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diameter_text"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@drawable/bg_switch"
+        android:padding="2.5dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/mass_text"
+        app:layout_constraintBottom_toBottomOf="@+id/mass_text">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_mass"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:thumb="@drawable/thumb_selector"
+            app:switchMinWidth="100dp"
+            app:track="@drawable/track_selector" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/switch_mass_kg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/kg"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/switch_mass_lb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/lb"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/leo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/leo"
+        android:layout_marginTop="30dp"
+        android:textSize="16sp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mass_text"/>
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="33dp"
+        android:background="@drawable/bg_switch"
+        android:padding="2.5dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/leo_text"
+        app:layout_constraintBottom_toBottomOf="@+id/leo_text">
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switch_leo"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:checked="true"
+            android:textColor="@color/white"
+            android:thumb="@drawable/thumb_selector"
+            app:switchMinWidth="100dp"
+            app:track="@drawable/track_selector" />
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/switch_leo_kg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/kg"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/switch_leo_lb"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/grey"
+                android:text="@string/lb"
+                android:textSize="12sp" />
+
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
