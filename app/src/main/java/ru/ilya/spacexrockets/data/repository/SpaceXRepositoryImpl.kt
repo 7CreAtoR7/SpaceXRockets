@@ -1,6 +1,5 @@
 package ru.ilya.spacexrockets.data.repository
 
-import android.util.Log
 import androidx.room.withTransaction
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -60,19 +59,13 @@ class SpaceXRepositoryImpl @Inject constructor(
                 val localSavedLaunches = mapper.mapListLaunchEntityToListLaunch(
                     appDb.launchesDao().getLaunchesByRocketName(rocketName = rocketName)
                 )
-                Log.d("CHECKLAUNCHES", "localSavedLaunches: ${localSavedLaunches} в impl")
                 emit(Resource.Loading(data = localSavedLaunches))
 
                 try {
                     val remoteLaunches = api.getLaunchesByRocketId(rocketName = rocketName)
                     val entityLaunches = mapper.mapListLaunchDtoToListLaunchEntity(remoteLaunches)
                     appDb.withTransaction {
-                        try {
-                            appDb.launchesDao().deleteLaunchesByRocketName(rocketName = rocketName)
-                        } catch (e: Exception) {
-                            Log.d("MYERRORDAMN", "ERROR $e")
-                        }
-
+                        appDb.launchesDao().deleteLaunchesByRocketName(rocketName = rocketName)
                         appDb.launchesDao().insertLaunches(entityLaunches)
                     }
                 } catch (e: IOException) {

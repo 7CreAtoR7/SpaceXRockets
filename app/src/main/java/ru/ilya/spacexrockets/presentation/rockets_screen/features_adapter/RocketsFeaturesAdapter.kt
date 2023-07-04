@@ -23,7 +23,7 @@ class RocketsFeaturesAdapter(
     override fun onBindViewHolder(holder: RocketsViewHolder, position: Int) {
         val rocketItem = featuresModel[position]
 
-        holder.binding.value.text = rocketItem.value.toString()
+        holder.binding.value.text = rocketItem.value
         holder.binding.textValue.text = rocketItem.feature
     }
 

@@ -1,6 +1,5 @@
 package ru.ilya.spacexrockets.presentation.launches_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -40,7 +39,6 @@ class LaunchesViewModel @Inject constructor(
                             )
                         }
                         is Resource.Loading -> {
-                            Log.d("CHECKLAUNCHES", "перехватили launches в launchesviewmodel в resource.loading: ${result.data}")
                             _state.emit(
                                 LaunchesUIState.Loading(
                                     launchesListFromLastSession = result.data ?: emptyList()
@@ -54,7 +52,6 @@ class LaunchesViewModel @Inject constructor(
 
     companion object {
 
-        private const val INTERNET_CONNECTION_ERROR = "Нет интернет соединения"
         private const val SOMETHING_WENT_WRONG = "Что-то пошло не так, повторите позже"
     }
 }

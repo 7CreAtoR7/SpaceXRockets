@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName
 data class PayloadWeight(
 
     @SerializedName("id")
-    val id: String,
+    val id: String? = null,
 
     @SerializedName("kg")
-    val kg: Int,
+    val kg: Int? = null,
 
     @SerializedName("lb")
-    val lb: Int,
+    val lb: Int? = null,
 
     @SerializedName("name")
-    val name: String
+    val name: String? = null
 )

@@ -1,6 +1,5 @@
 package ru.ilya.spacexrockets.presentation.view_pager
 
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
