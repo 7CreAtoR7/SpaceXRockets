@@ -1,5 +1,6 @@
 package ru.ilya.spacexrockets.presentation.launches_screen
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
@@ -19,7 +20,7 @@ class LaunchesViewModel @Inject constructor(
     private val _state = MutableStateFlow<LaunchesUIState>(LaunchesUIState.Init)
     val state = _state.asStateFlow()
 
-    fun getLaunchesByRocketId(rocketName: String) {
+    fun getLaunchesByRocketName(rocketName: String) {
         viewModelScope.launch(Dispatchers.IO) {
             getLaunchesUseCase(rocketName = rocketName)
                 .onEach { result ->
@@ -37,6 +38,7 @@ class LaunchesViewModel @Inject constructor(
                             )
                         }
                         is Resource.Loading -> {
+                            Log.d("CHECKLAUNCHES", "перехватили launches в launchesviewmodel в resource.loading: ${result.data}")
                             _state.emit(
                                 LaunchesUIState.Loading(
                                     launchesListFromLastSession = result.data ?: emptyList()

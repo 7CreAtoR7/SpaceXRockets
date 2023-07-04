@@ -13,6 +13,9 @@ data class LaunchDto(
     @SerializedName("launch_success")
     val launch_success: Boolean? = null,
 
+    @SerializedName("rocket")
+    val rocket: RocketLaunchDto? = null,
+
     @SerializedName("launch_date_unix")
     val launch_date_unix: Int? = null,
 

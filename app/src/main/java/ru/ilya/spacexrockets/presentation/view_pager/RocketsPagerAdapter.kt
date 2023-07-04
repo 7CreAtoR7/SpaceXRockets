@@ -1,5 +1,6 @@
 package ru.ilya.spacexrockets.presentation.view_pager
 
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Lifecycle
@@ -13,12 +14,15 @@ class RocketsPagerAdapter(
     lifecycle: Lifecycle
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
+    private var currentPosition = 0
+
     override fun getItemCount(): Int {
         return rocketsList.size
     }
 
     override fun createFragment(position: Int): Fragment {
         val currentRocketInfo = rocketsList[position]
+        currentPosition = position
         return RocketsFragment.newInstance(currentRocketInfo)
     }
 

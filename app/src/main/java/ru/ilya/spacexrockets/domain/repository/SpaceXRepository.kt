@@ -9,5 +9,5 @@ interface SpaceXRepository {
 
     suspend fun getRockets(): Flow<Resource<List<Rocket>>>
 
-    suspend fun getLaunchesByRocketId(rocketName: String): Flow<Resource<List<Launch>>>
+    suspend fun getLaunchesByRocketName(rocketName: String): Flow<Resource<List<Launch>>>
 }

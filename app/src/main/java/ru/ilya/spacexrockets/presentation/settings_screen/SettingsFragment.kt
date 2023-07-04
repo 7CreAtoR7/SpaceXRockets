@@ -1,20 +1,31 @@
 package ru.ilya.spacexrockets.presentation.settings_screen
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import ru.ilya.spacexrockets.R
+import androidx.navigation.fragment.findNavController
 import ru.ilya.spacexrockets.databinding.FragmentSettingsBinding
+import ru.ilya.spacexrockets.util.Constants.DIAMETER
+import ru.ilya.spacexrockets.util.Constants.FALSE
+import ru.ilya.spacexrockets.util.Constants.HEIGHT
+import ru.ilya.spacexrockets.util.Constants.LEO
+import ru.ilya.spacexrockets.util.Constants.MASS
+import ru.ilya.spacexrockets.util.Constants.PREF_VALUES
 
 class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding: FragmentSettingsBinding
         get() = _binding ?: throw RuntimeException("FragmentSettingsBinding == null")
+
+    private var heightM: Boolean = FALSE
+    private var diameterM: Boolean = FALSE
+    private var massKg: Boolean = FALSE
+    private var leoKg: Boolean = FALSE
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,66 +38,55 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initSwitchersListener()
+        initClickListeners()
+        loadSwitchValuesFromSharedPreferences()
+        initSwitchValues()
     }
 
-    private fun initSwitchersListener() {
-        binding.switchHeight.setOnCheckedChangeListener { _, checked ->
-            when {
-                checked -> {
-                    binding.switchHeightM.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                    binding.switchHeightFt.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                }
-                else -> {
-                    binding.switchHeightM.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                    binding.switchHeightFt.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                }
-            }
+    private fun initClickListeners() {
+        binding.close.setOnClickListener {
+            findNavController().popBackStack()
         }
+    }
 
-        binding.switchDiameter.setOnCheckedChangeListener { _, checked ->
-            when {
-                checked -> {
-                    binding.switchDiameterM.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                    binding.switchDiameterFt.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                }
-                else -> {
-                    binding.switchDiameterM.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                    binding.switchDiameterFt.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                }
-            }
-        }
+    private fun initSwitchValues() {
+        binding.switchHeight.isChecked = heightM
+        binding.switchDiameter.isChecked = diameterM
+        binding.switchMass.isChecked = massKg
+        binding.switchLeo.isChecked = leoKg
+    }
 
-        binding.switchMass.setOnCheckedChangeListener { _, checked ->
-            when {
-                checked -> {
-                    binding.switchMassKg.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                    binding.switchMassLb.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                }
-                else -> {
-                    binding.switchMassKg.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                    binding.switchMassLb.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                }
-            }
-        }
+    private fun saveSwitchValuesInSharedPreferences() {
+        val sharedPref = requireContext().getSharedPreferences(PREF_VALUES, Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putBoolean(HEIGHT, heightM)
+        editor.putBoolean(DIAMETER, diameterM)
+        editor.putBoolean(MASS, massKg)
+        editor.putBoolean(LEO, leoKg)
+        editor.apply()
+    }
 
-        binding.switchLeo.setOnCheckedChangeListener { _, checked ->
-            when {
-                checked -> {
-                    binding.switchLeoKg.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                    binding.switchLeoLb.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                }
-                else -> {
-                    binding.switchLeoKg.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
-                    binding.switchLeoLb.setTextColor(ContextCompat.getColor(requireContext(),R.color.grey))
-                }
-            }
-        }
+    private fun loadSwitchValuesFromSharedPreferences() {
+        // загружаем статусы свитчеров из прошлой сессии
+        val sharedPrefer = requireContext().getSharedPreferences(PREF_VALUES, Context.MODE_PRIVATE)
+        heightM = sharedPrefer.getBoolean(HEIGHT, FALSE)
+        diameterM = sharedPrefer.getBoolean(DIAMETER, FALSE)
+        massKg = sharedPrefer.getBoolean(MASS, FALSE)
+        leoKg = sharedPrefer.getBoolean(LEO, FALSE)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // сохраняем статусы чекеров в SP
+        heightM = binding.switchHeight.isChecked
+        diameterM = binding.switchDiameter.isChecked
+        massKg = binding.switchMass.isChecked
+        leoKg = binding.switchLeo.isChecked
+        saveSwitchValuesInSharedPreferences()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
 }

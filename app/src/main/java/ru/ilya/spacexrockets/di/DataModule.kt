@@ -8,6 +8,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import ru.ilya.spacexrockets.data.local.AppDatabase
 import ru.ilya.spacexrockets.data.remote.SpaceXApi
 import ru.ilya.spacexrockets.data.repository.SpaceXRepositoryImpl
 import ru.ilya.spacexrockets.domain.repository.SpaceXRepository
@@ -21,6 +22,14 @@ interface DataModule {
     fun bindSpaceXRepository(impl: SpaceXRepositoryImpl): SpaceXRepository
 
     companion object {
+
+        @ApplicationScope
+        @Provides
+        fun provideAppDatabase(
+            application: Application
+        ): AppDatabase {
+            return AppDatabase.getInstance(application)
+        }
 
         @ApplicationScope
         @Provides

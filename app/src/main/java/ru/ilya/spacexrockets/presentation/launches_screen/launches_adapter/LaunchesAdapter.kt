@@ -33,7 +33,7 @@ class LaunchesAdapter : ListAdapter<Launch, LaunchesAdapter.LaunchViewHolder>(La
             if (launchItem.launchSuccess)
                 statusImage.setImageResource(R.drawable.success_launch)
             else
-                statusImage.setImageResource(R.drawable.failed_launch)
+                statusImage.setImageResource(R.drawable.fail_launch)
         }
     }
 }

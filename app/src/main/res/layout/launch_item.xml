@@ -19,7 +19,6 @@
             android:id="@+id/launch_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
             android:text="@string/launch_name"
@@ -31,7 +30,6 @@
             android:id="@+id/launch_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
             android:textSize="15sp"
             android:text="@string/launch_date"
             app:layout_constraintStart_toStartOf="@+id/launch_name"
@@ -42,6 +40,7 @@
             android:id="@+id/status_image"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:src="@drawable/success_launch"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
