@@ -20,7 +20,7 @@ class SettingsFragment : Fragment() {
 
     private var _binding: FragmentSettingsBinding? = null
     private val binding: FragmentSettingsBinding
-        get() = _binding ?: throw RuntimeException("FragmentSettingsBinding == null")
+        get() = _binding ?: FragmentSettingsBinding.inflate(layoutInflater).also { _binding = it }
 
     private var heightM: Boolean = FALSE
     private var diameterM: Boolean = FALSE

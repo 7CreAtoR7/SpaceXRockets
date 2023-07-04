@@ -18,18 +18,16 @@ import ru.ilya.spacexrockets.domain.model.rockets_model.Rocket
 import ru.ilya.spacexrockets.domain.model.rockets_model.RocketFeaturesModel
 import ru.ilya.spacexrockets.presentation.rockets_screen.features_adapter.RocketsFeaturesAdapter
 import ru.ilya.spacexrockets.presentation.view_pager.RocketsViewPagerFragmentDirections
-import ru.ilya.spacexrockets.util.Constants.DIAMETER
-import ru.ilya.spacexrockets.util.Constants.FALSE
-import ru.ilya.spacexrockets.util.Constants.HEIGHT
-import ru.ilya.spacexrockets.util.Constants.LEO
-import ru.ilya.spacexrockets.util.Constants.MASS
-import ru.ilya.spacexrockets.util.Constants.PREF_VALUES
+import ru.ilya.spacexrockets.util.Constants
+import ru.ilya.spacexrockets.util.formatToRusDate
+import ru.ilya.spacexrockets.util.toEasyReadStringNumber
+import ru.ilya.spacexrockets.util.toShortPriceName
 
 class RocketsFragment : Fragment() {
 
     private var _binding: FragmentRocketsBinding? = null
     private val binding: FragmentRocketsBinding
-        get() = _binding ?: throw RuntimeException("FragmentRocketsBinding == null")
+        get() = _binding ?: FragmentRocketsBinding.inflate(layoutInflater).also { _binding = it }
 
     private lateinit var currentRocket: Rocket
 
@@ -85,30 +83,25 @@ class RocketsFragment : Fragment() {
         }
     }
 
-    private fun loadSwitchValuesFromSharedPreferences() {
-        val sharedPreferences = requireContext().getSharedPreferences(PREF_VALUES, Context.MODE_PRIVATE)
-        featuresList = mutableListOf(
-            RocketFeaturesModel(if (sharedPreferences.getBoolean(HEIGHT, FALSE)) "Высота, ft" else "Высота, m", if (sharedPreferences.getBoolean(HEIGHT, FALSE)) currentRocket.heightFeet else currentRocket.heightM),
-            RocketFeaturesModel(if (sharedPreferences.getBoolean(DIAMETER, FALSE)) "Диаметр, ft" else "Диаметр, m", if (sharedPreferences.getBoolean(DIAMETER, FALSE)) currentRocket.diameterFeet else currentRocket.diameterM),
-            RocketFeaturesModel(if (sharedPreferences.getBoolean(MASS, FALSE)) "Масса, lb" else "Масса, kg", if (sharedPreferences.getBoolean(MASS, FALSE)) currentRocket.massLb.toDouble() else currentRocket.massKg.toDouble()),
-            RocketFeaturesModel(if (sharedPreferences.getBoolean(LEO, FALSE)) "Нагрузка, lb" else "Нагрузка, kg", if (sharedPreferences.getBoolean(LEO, FALSE)) currentRocket.LeoPayloadLb.toDouble() else currentRocket.LeoPayloadKg.toDouble())
-        )
-    }
 
     private fun bind() {
         loadImage()
         binding.rocketTitle.text = currentRocket.rocketName
-
-        binding.firstLaunchDate.text = currentRocket.firstFlight
-        binding.country.text = currentRocket.country
-        binding.launchPrice.text = currentRocket.costPerLaunch.toString()
+        binding.firstLaunchDate.text = currentRocket.firstFlight.formatToRusDate()
+        binding.country.text = when (currentRocket.country) {
+            "Republic of the Marshall Islands" -> "Маршалловы острова"
+            "United States" -> "США"
+            else -> ""
+        }
+        binding.launchPrice.text = currentRocket.costPerLaunch.toShortPriceName()
 
         binding.enginesCountFirstStage.text = currentRocket.enginesCountFirstStage.toString()
-        binding.fuelCountFirstStage.text = currentRocket.fuelAmountTonsFirstStage.toString()
+        binding.fuelCountFirstStage.text = currentRocket.fuelAmountTonsFirstStage.toInt().toString()
         binding.burnTimeFirstStage.text = currentRocket.burnTimeSecFirstStage.toString()
 
         binding.enginesCountSecondStage.text = currentRocket.enginesCountSecondStage.toString()
-        binding.fuelCountSecondStage.text = currentRocket.fuelAmountTonsSecondStage.toString()
+        binding.fuelCountSecondStage.text =
+            currentRocket.fuelAmountTonsSecondStage.toInt().toString()
         binding.burnTimeSecondStage.text = currentRocket.burnTimeSecSecondStage.toString()
 
         val adapter = RocketsFeaturesAdapter(featuresList)
@@ -135,6 +128,65 @@ class RocketsFragment : Fragment() {
             .load(currentRocket.imageUrl)
             .apply(requestOptions)
             .into(binding.rocketImage)
+    }
+
+    private fun loadSwitchValuesFromSharedPreferences() {
+        val sharedPreferences =
+            requireContext().getSharedPreferences(Constants.PREF_VALUES, Context.MODE_PRIVATE)
+        featuresList = mutableListOf(
+            RocketFeaturesModel(
+                if (sharedPreferences.getBoolean(
+                        Constants.HEIGHT,
+                        Constants.FALSE
+                    )
+                ) "Высота, ft" else "Высота, m",
+                if (sharedPreferences.getBoolean(
+                        Constants.HEIGHT,
+                        Constants.FALSE
+                    )
+                ) currentRocket.heightFeet.toString() else currentRocket.heightM.toString()
+            ),
+            RocketFeaturesModel(
+                if (sharedPreferences.getBoolean(
+                        Constants.DIAMETER,
+                        Constants.FALSE
+                    )
+                ) "Диаметр, ft" else "Диаметр, m",
+                if (sharedPreferences.getBoolean(
+                        Constants.DIAMETER,
+                        Constants.FALSE
+                    )
+                ) currentRocket.diameterFeet.toString() else currentRocket.diameterM.toString()
+            ),
+            RocketFeaturesModel(
+                if (sharedPreferences.getBoolean(
+                        Constants.MASS,
+                        Constants.FALSE
+                    )
+                ) "Масса, lb" else "Масса, kg",
+                if (sharedPreferences.getBoolean(
+                        Constants.MASS,
+                        Constants.FALSE
+                    )
+                ) currentRocket.massLb.toDouble()
+                    .toEasyReadStringNumber() else currentRocket.massKg.toDouble()
+                    .toEasyReadStringNumber()
+            ),
+            RocketFeaturesModel(
+                if (sharedPreferences.getBoolean(
+                        Constants.LEO,
+                        Constants.FALSE
+                    )
+                ) "Нагрузка, lb" else "Нагрузка, kg",
+                if (sharedPreferences.getBoolean(
+                        Constants.LEO,
+                        Constants.FALSE
+                    )
+                ) currentRocket.LeoPayloadLb.toDouble()
+                    .toEasyReadStringNumber() else currentRocket.LeoPayloadKg.toDouble()
+                    .toEasyReadStringNumber()
+            )
+        )
     }
 
     companion object {
