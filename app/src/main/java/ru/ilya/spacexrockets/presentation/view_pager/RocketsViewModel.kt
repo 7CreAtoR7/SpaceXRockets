@@ -2,6 +2,7 @@ package ru.ilya.spacexrockets.presentation.view_pager
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -10,6 +11,7 @@ import ru.ilya.spacexrockets.util.Resource
 import ru.ilya.spacexrockets.presentation.rockets_screen.RocketsUIState
 import javax.inject.Inject
 
+@HiltViewModel
 class RocketsViewModel @Inject constructor(
     private val getRocketsUseCase: GetRocketsUseCase,
 ) : ViewModel() {

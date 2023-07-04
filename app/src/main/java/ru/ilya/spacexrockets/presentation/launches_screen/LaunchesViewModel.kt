@@ -3,6 +3,7 @@ package ru.ilya.spacexrockets.presentation.launches_screen
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -13,6 +14,7 @@ import ru.ilya.spacexrockets.domain.use_case.GetLaunchesUseCase
 import ru.ilya.spacexrockets.util.Resource
 import javax.inject.Inject
 
+@HiltViewModel
 class LaunchesViewModel @Inject constructor(
     private val getLaunchesUseCase: GetLaunchesUseCase,
 ) : ViewModel() {

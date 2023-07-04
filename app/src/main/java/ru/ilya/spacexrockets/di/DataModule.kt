@@ -1,9 +1,13 @@
 package ru.ilya.spacexrockets.di
 
 import android.app.Application
+import android.content.Context
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -13,26 +17,27 @@ import ru.ilya.spacexrockets.data.remote.SpaceXApi
 import ru.ilya.spacexrockets.data.repository.SpaceXRepositoryImpl
 import ru.ilya.spacexrockets.domain.repository.SpaceXRepository
 import ru.ilya.spacexrockets.util.Constants
+import javax.inject.Singleton
 
 @Module
+@InstallIn(SingletonComponent::class)
 interface DataModule {
 
-    @ApplicationScope
     @Binds
     fun bindSpaceXRepository(impl: SpaceXRepositoryImpl): SpaceXRepository
 
     companion object {
 
-        @ApplicationScope
+        @Singleton
         @Provides
         fun provideAppDatabase(
-            application: Application
+            @ApplicationContext context: Context
         ): AppDatabase {
-            return AppDatabase.getInstance(application)
+            return AppDatabase.getInstance(context)
         }
 
-        @ApplicationScope
         @Provides
+        @Singleton
         fun provideSpaceXApi(): SpaceXApi {
             val interceptor = HttpLoggingInterceptor()
             interceptor.level = HttpLoggingInterceptor.Level.BODY
