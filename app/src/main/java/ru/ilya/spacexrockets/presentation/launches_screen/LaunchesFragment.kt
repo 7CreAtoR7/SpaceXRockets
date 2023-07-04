@@ -7,18 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.EntryPoint
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.ilya.spacexrockets.databinding.FragmentLaunchesBinding
 import ru.ilya.spacexrockets.presentation.launches_screen.launches_adapter.LaunchesAdapter
 import ru.ilya.spacexrockets.util.AppSpaceX
-import ru.ilya.spacexrockets.util.ViewModelFactory
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class LaunchesFragment : Fragment() {
 
     private var _binding: FragmentLaunchesBinding? = null
@@ -26,20 +29,8 @@ class LaunchesFragment : Fragment() {
         get() = _binding ?: throw RuntimeException("FragmentLaunchesBinding == null")
 
     private val args by navArgs<LaunchesFragmentArgs>()
-    private lateinit var viewModel: LaunchesViewModel
+    private val viewModel: LaunchesViewModel by viewModels()
     private val launchesAdapter: LaunchesAdapter by lazy { LaunchesAdapter() }
-
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-
-    private val component by lazy {
-        (requireActivity().application as AppSpaceX).component
-    }
-
-    override fun onAttach(context: Context) {
-        component.inject(this)
-        super.onAttach(context)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +42,6 @@ class LaunchesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, viewModelFactory)[LaunchesViewModel::class.java]
 
         setupRecyclerView()
         initObservers()
