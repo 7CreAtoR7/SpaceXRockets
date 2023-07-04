@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.coroutines.launch
@@ -70,6 +71,11 @@ class LaunchesFragment : Fragment() {
                 when (state) {
                     is LaunchesUIState.Loading -> {
                         binding.progressLoader.visibility = View.VISIBLE
+                        if (state.launchesListFromLastSession.isNotEmpty()) {
+                            // есть сохраненные данные с прошлой сессии, пока отобразим их
+                            launchesAdapter.submitList(state.launchesListFromLastSession)
+                            binding.progressLoader.visibility = View.GONE
+                        }
                     }
                     is LaunchesUIState.Success -> {
                         binding.progressLoader.visibility = View.GONE
@@ -84,7 +90,7 @@ class LaunchesFragment : Fragment() {
                     }
                     is LaunchesUIState.Init -> {
                         binding.rocketName.text = args.rocketName
-                        viewModel.getLaunchesByRocketId(rocketName = args.rocketName)
+                        viewModel.getLaunchesByRocketName(rocketName = args.rocketName)
                     }
                 }
             }
@@ -93,7 +99,7 @@ class LaunchesFragment : Fragment() {
 
     private fun initClickListeners() {
         binding.backButton.setOnClickListener {
-            requireActivity().onBackPressed()
+            findNavController().popBackStack()
         }
     }
 

@@ -20,7 +20,7 @@ class RocketsViewPagerFragment : Fragment() {
 
     private var _binding: FragmentRocketsViewPagerBinding? = null
     private val binding: FragmentRocketsViewPagerBinding
-        get() = _binding ?: throw RuntimeException("FragmentRocketsViewPagerBinding == null")
+        get() = _binding ?: FragmentRocketsViewPagerBinding.inflate(layoutInflater).also { _binding = it }
 
     private lateinit var viewModel: RocketsViewModel
 
@@ -56,11 +56,20 @@ class RocketsViewPagerFragment : Fragment() {
                 when (state) {
                     is RocketsUIState.Loading -> {
                         binding.progressLoader.visibility = View.VISIBLE
+                        if (state.rocketsListFromLastSession.isNotEmpty()) {
+                            // есть сохраненные данные с прошлой сессии, пока отобразим их
+                            binding.viewPager.adapter = RocketsPagerAdapter(childFragmentManager, state.rocketsListFromLastSession, lifecycle)
+                            binding.dotsIndicator.attachTo(binding.viewPager) // dots indicator
+                            binding.progressLoader.visibility = View.GONE
+                        }
                     }
                     is RocketsUIState.Success -> {
                         binding.progressLoader.visibility = View.GONE
+                        val currentPosition = binding.viewPager.currentItem
                         binding.viewPager.adapter = RocketsPagerAdapter(childFragmentManager, state.rocketsList, lifecycle)
                         binding.dotsIndicator.attachTo(binding.viewPager) // dots indicator
+                        binding.viewPager.setCurrentItem(currentPosition, false)
+
                     }
                     is RocketsUIState.Error -> {
                         binding.progressLoader.visibility = View.GONE

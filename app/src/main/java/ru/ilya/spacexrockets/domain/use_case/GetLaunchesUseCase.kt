@@ -11,6 +11,6 @@ class GetLaunchesUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke(rocketName: String): Flow<Resource<List<Launch>>> {
-        return spaceXRepository.getLaunchesByRocketId(rocketName = rocketName)
+        return spaceXRepository.getLaunchesByRocketName(rocketName = rocketName)
     }
 }
