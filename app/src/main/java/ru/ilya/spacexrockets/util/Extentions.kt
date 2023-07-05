@@ -1,5 +1,7 @@
 package ru.ilya.spacexrockets.util
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import java.text.SimpleDateFormat
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -17,11 +19,12 @@ fun Int.fromUnixToDate(): String {
 }
 
 fun String.formatToRusDate(): String {
-    val inputDateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
-    val outputDateFormat = DateTimeFormatter.ofPattern("d MMMM, yyyy", Locale("ru", "RU"))
-    val date = LocalDate.parse(this, inputDateFormat)
-    return date.format(outputDateFormat)
+    val inputDateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+    val outputDateFormat = SimpleDateFormat("d MMMM, yyyy", Locale("ru", "RU"))
+    val date = inputDateFormat.parse(this)
+    return outputDateFormat.format(date ?: "")
 }
+
 
 fun Int.toShortPriceName(): String {
     val absValue = kotlin.math.abs(this)
