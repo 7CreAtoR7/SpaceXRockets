@@ -27,8 +27,8 @@ interface DataModule {
 
     companion object {
 
-        @Singleton
         @Provides
+        @Singleton
         fun provideAppDatabase(
             @ApplicationContext context: Context
         ): AppDatabase {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpaceXRockets</string>
+    <string name="app_name">SpaceX Ракеты</string>
     <string name="first_launch">Первый запуск</string>
     <string name="country">Страна</string>
     <string name="launch_price">Стоимость запуска</string>
