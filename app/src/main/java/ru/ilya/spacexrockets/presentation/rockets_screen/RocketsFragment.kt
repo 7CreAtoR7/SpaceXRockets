@@ -53,17 +53,11 @@ class RocketsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        startFragmentAppearingAnimation()
 
         getPreviousScrollPosition() // скролимся к ранее сохраненной позиции
         loadSwitchValuesFromSharedPreferences() // список характеристик, учитывая настрйоки
         bind()
         initClickListeners()
-    }
-
-    private fun startFragmentAppearingAnimation() {
-        val fadeInAnimation = AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
-        view?.startAnimation(fadeInAnimation)
     }
 
     private fun getPreviousScrollPosition() {

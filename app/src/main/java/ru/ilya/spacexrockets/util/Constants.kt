@@ -11,4 +11,6 @@ object Constants {
     const val PREF_VALUES = "values"
 
     const val FALSE = false
+
+    const val ERROR_TAG = "ERROR_TAG"
 }
